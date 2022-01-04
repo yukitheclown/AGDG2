@@ -1,5 +1,7 @@
 <?php
 
+// ini_set('display_errors', true);
+
 require "validate_login.php";
 require "utils.php";
 
@@ -9,7 +11,7 @@ if(isset($_POST["submit"]) && !empty($_POST["subject"]) && !empty($_POST["commen
 
 	if(validate_file($_FILES["file"])){
 
-		$upload_id = upload_file($sql_conn, $_FILES["file"], $user_id, false, false);
+		$upload_id = upload_file($sql_conn, $_FILES["file"], $user_id, 0, 0);
 	}
 
 	if($upload_id !== NULL){

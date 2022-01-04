@@ -21,7 +21,6 @@ $sql = "SELECT * FROM `users` WHERE username='". $session_username . "' AND pass
 $result = mysqli_query($sql_conn, $sql);
 
 $user_id = 0;
-$unban_time = 0;
 $user_status = "nodev";
 
 if($result && mysqli_num_rows($result) != 0){
@@ -32,7 +31,6 @@ if($result && mysqli_num_rows($result) != 0){
 	$user_status = mysqli_real_escape_string($sql_conn, $rows["status"]);
 
 	$sql = "SELECT * FROM `bans` WHERE ip='". $_SERVER['REMOTE_ADDR'] . "'";
-
 	$result = mysqli_query($sql_conn, $sql);
 
 	$error = false;
@@ -46,9 +44,8 @@ if($result && mysqli_num_rows($result) != 0){
 		if(mysqli_num_rows($result) != 0){
 
 			$rows = mysqli_fetch_assoc($result);		
-			$unban_time = $rows["unban_time"];
 
-			if(!$rows["perm"] && time() > $unban_time){
+			if(!$rows["perm"] && time() > $rows["unban_time"]){
 
 				$sql = "DELETE FROM `bans` WHERE user_id='". $user_id . "'";
 		
@@ -61,9 +58,14 @@ if($result && mysqli_num_rows($result) != 0){
 		}
 		
 	} else {
-
+		$sql = "SELECT * FROM `bans` WHERE user_id='". $user_id . "'";
+		$result = mysqli_query($sql_conn, $sql);
+		if(mysqli_num_rows($result) != 0){
+			$rows = mysqli_fetch_assoc($result);		
+		}		
 		$error = true;
 	}
+
 
 	if($error){
 
@@ -74,7 +76,7 @@ if($result && mysqli_num_rows($result) != 0){
 		if($rows["perm"])
 			header("Location: /banned.php?p=1");
 		else
-			header("Location: /banned.php?t=" . $unban_time);
+			header("Location: /banned.php?t=" . $rows["unban_time"]);
 
 		die();
 	}

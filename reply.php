@@ -2,6 +2,7 @@
 
 require "validate_login.php";
 require "utils.php";
+ini_set('display_errors', true);
 
 function reply($sql_conn, $user_id, $thread_id){
 
@@ -15,8 +16,8 @@ function reply($sql_conn, $user_id, $thread_id){
 
 	$upload_id = NULL;
 
-	$spoiler = isset($_POST["spoiler"]);
-	$lewd = isset($_POST["lewd"]);
+	$spoiler = intval(isset($_POST["spoiler"]));
+	$lewd = intval(isset($_POST["lewd"]));
 
 	if($valid_file){
 		$upload_id = upload_file($sql_conn, $_FILES["file"], $user_id, $spoiler, $lewd);

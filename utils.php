@@ -1,6 +1,6 @@
 <?php
 
-date_default_timezone_get('UTC');
+// date_default_timezone_get('UTC');
 
 function create_thumbnail($img, $dest_path, $target_wh, $file_type){
 
@@ -66,7 +66,10 @@ function upload_file($sql_conn, $file, $user_id, $spoiler, $lewd){
 	$sql = "INSERT INTO `uploads` (filename, user_id, ext, spoiler, lewd) VALUES ('" . substr($filename, 0, 128) . 
 		"', '" .  $user_id . "', '" . mysqli_real_escape_string($sql_conn, $file_type) . "', '" . $spoiler . "', '" . $lewd ."')";
 
-	mysqli_query($sql_conn, $sql);
+	if(!mysqli_query($sql_conn, $sql)){
+		die(mysqli_error($sql_conn));
+
+	}
 
 	$sql = "SELECT id FROM `uploads` ORDER BY id DESC LIMIT 1";
 

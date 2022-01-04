@@ -1,13 +1,9 @@
 <?php
 
-// $sql_servername = "localhost";
-// $sql_username = "yukizin_yuki";
-// $sql_password = "cRKhye{C4=_J";
-// $sql_database = "yukizin_agdg2";
 
 $sql_servername = "127.0.0.1";
 $sql_username = "root";
-$sql_password = "password";
+$sql_password = "";
 $sql_database = "agdg2";
 
 $sql_conn = mysqli_connect($sql_servername, $sql_username, $sql_password, $sql_database);

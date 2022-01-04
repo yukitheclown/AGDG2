@@ -1,6 +1,7 @@
 <?php
 
-require "validate_login.php";
+include_once("validate_login.php");
+// include_once("utils.php");
 
 // ini_set('display_errors', true);
 

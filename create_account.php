@@ -5,6 +5,7 @@ ini_set('display_errors', true);
 require "sql.php";
 
 $inviter = "";
+$inviter_id = "";
 
 if(empty($_GET["invite_key"]) == false){
 
@@ -21,9 +22,9 @@ if(empty($_GET["invite_key"]) == false){
 	
 	} else {
 
-		$id = mysqli_fetch_assoc($result)["user_id"];
+		$inviter_id = mysqli_fetch_assoc($result)["user_id"];
 	
-		$sql = "SELECT username FROM `users` where id='". $id . "'";
+		$sql = "SELECT username FROM `users` where id='". $inviter_id . "'";
 
 		$result = mysqli_query($sql_conn, $sql);
 
@@ -105,9 +106,11 @@ if(isset($_POST["submit"])){
 			$_SESSION["username"] = $username;
 			$_SESSION["password"] = $password;
 
-			$sql = "INSERT INTO `users` (username, password) VALUES ('" . $username . "', '" .  $password . "')";
+			$sql = "INSERT INTO `users` (username, password, inviter_id, status) VALUES ('" . $username . "', '" .  $password ."', '" . $inviter_id. "', 'nodev')";
 
-			mysqli_query($sql_conn, $sql);
+			if(!mysqli_query($sql_conn, $sql)){
+				echo mysqli_error($sql_conn);
+			}
 
 			$sql = "SELECT id FROM `users` WHERE username='" . $username . "'";
 

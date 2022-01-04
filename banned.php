@@ -12,7 +12,7 @@
 <?php
 
 if(!isset($_GET["p"]))
-	echo "<div id='header_sub'>Banned until ". date("l, F Y", $_GET["t"]) . " at " .  date("g:i:sA", $_GET["t"]) . "</div>";
+	echo "<div id='header_sub'>Banned until ". date("l, F d Y", $_GET["t"]) . " at " .  date("g:i:sA", $_GET["t"]) . "</div>";
 else
 	echo "<div id='header_sub'>Forever</div>";
 
