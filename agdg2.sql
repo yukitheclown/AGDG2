@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `invite_keys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `inv_key` varchar(40) NOT NULL,
+  `sent` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=85 ;
 
